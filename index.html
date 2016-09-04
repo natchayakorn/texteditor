@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Editor</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>TextEditor</h1>
+    <button type = "button" class = "bold">B</button>
+    <button type="button" class = "italic">I</button>
+    <input type="button" class = "underline" name="underline" value="U">
+    <select  name="selectFontSize" class = "font-size">
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+        <option>16</option>
+    </select>
+    <button id="open">Open file and click load</button>
+    <input id="fileinput" type="file" name="yourinputname" style="display: none;" />
+    <input type='button' id='btnLoad' value='Load' onclick='handleFileSelect();'>
+    <input type = 'text' id='input' placeholder="Type and search">
+    <input type = 'button' id='search' value='Search'>
+    <input type = 'button' id='save' value = 'Save'>
+    <input type="text" name="replace1" id = 'replace1' placeholder="Word">
+    <input type="text" name="replace2" id = 'replace2' placeholder="Replace Word">
+    <input type="button" name="btnreplace" id = 'replace' value="Replace">
+
+
+    <br><br>
+
+    <textarea id = "text" name = "text"  cols="100" rows="14"></textarea>
+    <script type="text/javascript" src="jquery-1.8.3.js"></script>
+
+    <script type="text/javascript" src="script.js"></script>
+    <script>        
+     function handleFileSelect()
+  {               
+    if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+      alert('The File APIs are not fully supported in this browser.');
+      return;
+    }   
+
+    input = document.getElementById('fileinput');
+    if (!input) {
+      alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Load'");               
+    }
+    else {
+      file = input.files[0];
+      fr = new FileReader();
+      fr.onload = receivedText;
+      fr.readAsText(file);
+      fr.readAsDataURL(file);
+    }
+  }
+
+  function receivedText() {
+    document.getElementById('text').appendChild(document.createTextNode(fr.result));
+  }           
+
+
+
+
+
+</script>
+</body>
+</html>
